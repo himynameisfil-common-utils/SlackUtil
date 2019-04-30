@@ -1,0 +1,63 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.4.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'maven-publish'
+
+group = 'com.himynameisfil.common-utils'
+if ("${githubBranch}" == "master") {
+	version = '0.0.1'
+} else {
+	version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
+	//runtimeOnly 'mysql:mysql-connector-java'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.batch:spring-batch-test'
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	//testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile group: 'commons-io', name: 'commons-io', version: '2.4'
+	//implementation 'com.opencsv:opencsv:3.8'
+	//implementation 'org.apache.commons:commons-csv:1.3'
+	//testImplementation 'org.powermock:powermock-api-mockito:1.6.2'
+	//testImplementation 'org.powermock:powermock-module-junit4:1.6.2'
+}
+
+ext {
+	jarToPublish = file( "build/libs/SlackUtil-${version}.jar" )
+}
+publishing {
+	publications {
+		yourPublicationNameHere(MavenPublication) {
+			artifact jarToPublish
+			/* can specify a classifier if not encoded in the filename
+            artifact jarToPublish {
+                classifier 'theClassifier'
+            }
+            */
+		}
+	}
+	repositories {
+		maven {
+			url "${mavenUrl}"
+			credentials {
+				username "${nexusUser}"
+				password "${nexusPassword}"
+			}
+		}
+	}
+}
+
+build.finalizedBy publish
