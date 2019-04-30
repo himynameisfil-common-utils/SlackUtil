@@ -36,7 +36,7 @@ dependencies {
 }
 
 ext {
-	jarToPublish = file( "build/libs/SlackUtil-${version}.jar" )
+	jarToPublish = file( "build/libs/slack-util-${version}.jar" )
 }
 publishing {
 	publications {
