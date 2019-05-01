@@ -5,6 +5,9 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'maven-publish'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
 
 group = 'com.himynameisfil.common-utils'
 if ("${githubBranch}" == "master") {
@@ -60,4 +63,17 @@ publishing {
 	}
 }
 
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
+}
+
 build.finalizedBy publish
+
+/*
+publish {
+	dependsOn assemble
+}*/
