@@ -28,7 +28,7 @@ public class SlackUtil {
         loadProperties();
     }
     public SlackUtil() {
-        setResourceFileName("/config/HistoricalOptionsIngestorSlack.properties");
+        setResourceFileName("/config/slack.properties");
         loadProperties();
     }
 
